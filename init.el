@@ -49,15 +49,10 @@
           (lambda()
             (setq sgml-basic-offset 4)))
 
-(add-hook 'go-mode-hook
-          (lambda()
-            (setq c-basic-offset 4)))
-(add-hook 'go-mode-hook
-          (lambda()
-            (add-hook 'after-save-hook 'gofmt)))
-(add-hook 'go-mode-hook
-          (lambda()
-            (add-hook 'go-autocomplete)))
+(add-hook 'go-mode-hook  (lambda() (setq c-basic-offset 2)))
+(add-hook 'go-mode-hook 'before-save-hook 'gofmt-before-save)
+(add-hook 'go-mode-hook 'go-autocomplete)
+(add-hook 'go-mode-hook (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports))
 
 (add-hook 'after-change-major-mode-hook
           '(lambda ()
