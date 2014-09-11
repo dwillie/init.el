@@ -6,6 +6,13 @@
 ;; Graphene because I'm a noob
 (require 'graphene)
 
+;; Show column number in info bar thing
+(setq column-number-mode t)
+
+(require 'auto-complete)
+(require 'go-autocomplete)
+(require 'auto-complete-config)
+
 ;; Disable stupid autoescape
 (setq sp-autoescape-string-quote nil)
 
@@ -50,14 +57,17 @@
             (setq sgml-basic-offset 4)))
 
 (add-hook 'go-mode-hook  (lambda() (setq c-basic-offset 2)))
-(add-hook 'go-mode-hook 'before-save-hook 'gofmt-before-save)
-(add-hook 'go-mode-hook 'go-autocomplete)
-(add-hook 'go-mode-hook (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports))
+(add-hook 'before-save-hook 'gofmt-before-save)
+(add-hook 'go-mode-hook (lambda ()
+                          (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)))
+;; (add-hook 'go-mode-hook 'company-mode)
+;; (add-hook 'go-mode-hook (lambda ()
+;;   (set (make-local-variable 'company-backends) '(company-go))
+;;   (company-mode)))
 
 (add-hook 'after-change-major-mode-hook
           '(lambda ()
              (setq-default indent-tabs-mode nil)))
-
 
 ;; Default directory
 (cd "~")
