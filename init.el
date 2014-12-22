@@ -7,8 +7,9 @@
 (require 'thesaurus)
 (thesaurus-set-bhl-api-key-from-file "~/Dropbox/thesaurus-api-key")
 
-;; Show column number in info bar thing
+;; Column numbers/line numbers
 (setq column-number-mode t)
+(global-linum-mode 1)
 
 ;; Set Default directory to Home
 (setq default-directory (getenv "HOME"))
@@ -98,6 +99,8 @@
       (setq mac-option-modifier 'super) ;; Keyboard
       (setq mac-command-modifier 'meta)
       (setq ring-bell-function #'ignore) ;; kinetic scroll fix
+      (when (memq window-system '(mac ns))
+        (exec-path-from-shell-initialize))
       )
   )
 
